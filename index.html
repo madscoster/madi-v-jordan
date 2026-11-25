@@ -58,12 +58,12 @@ table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:6px 4px;b
 </main>
 <script>
 (function(){
-var KEY="duo-tracker-v1",OLD="madi-meal-tracker-v1",XMAS="2026-12-25",M=["k","p","c","f","fi","s"],
+var KEY="duo-tracker-v2",OLD="unused-old-key",XMAS="2026-12-25",M=["k","p","c","f","fi","s"],
 NM={k:"Calories",p:"Protein",c:"Carbs",f:"Fat",fi:"Fibre",s:"Sugar"},ML=["Breakfast","Lunch","Dinner","Snacks"],DL=["M","T","W","T","F","S","S"],
 TODAY=iso(new Date()),CH=[],cur=TODAY,chip="k",note="",goalsOpen=false,D=null;
 /* ---- Supabase sync: paste your Project URL and anon public key between the quotes. Leave blank to run on this device only. ---- */
-var SB_URL="",SB_KEY="",SB_TABLE="tracker";
-var sbOn=!!(SB_URL&&SB_KEY),snap=null,ready=false,lastJ={},busy={},lastEdit={},tm={},pend={};
+var SB_URL="https://aizstarzvvnpldijuqjs.supabase.co",SB_KEY="sb_publishable_PHssKOiPpGeqyJC-2qBt5g_tTKs-uwy",SB_TABLE="tracker";
+var sbOn=!!(SB_URL&&SB_KEY),snap=null,flash=null,ready=false,lastJ={},busy={},lastEdit={},tm={},pend={};
 function iso(d){return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);}
 function dt(s){var a=s.split("-");return new Date(+a[0],+a[1]-1,+a[2],12);}
 function add(s,n){var d=dt(s);d.setDate(d.getDate()+n);return iso(d);}
@@ -80,8 +80,8 @@ try{D=JSON.parse(localStorage.getItem(KEY));}catch(e){}
 if(!D||!D.people){
   var o=null;try{o=JSON.parse(localStorage.getItem(OLD));}catch(e){}
   D={tab:"madi",people:{
-    madi:{name:"Madi",start:70,goal:65,sd:"2026-11-18",ed:"2026-12-22",t:{k:1700,p:130,c:150,f:58,fi:28,s:60},days:{"2026-11-17":[{"c":9,"f":4,"k":146,"p":14,"s":3,"fi":8,"id":"seed423273891","meal":"Breakfast","name":"Moodi protein crisp bar, double choc"},{"c":43,"f":21,"k":405,"p":7,"s":4,"fi":6,"id":"seed498882775","meal":"Snacks","name":"Events Cinemas medium popcorn (half)"},{"c":22,"f":5,"k":190,"p":14,"s":15,"fi":1,"id":"seed635018642","meal":"Breakfast","name":"Tall matcha + protein foam"},{"c":45,"f":44,"k":825,"p":60,"s":8,"fi":11,"id":"seed624303830","meal":"Lunch","name":"Aegean bowl, chicken + grains"},{"c":50,"f":16,"k":400,"p":14,"s":3,"fi":2,"id":"seed709244051","meal":"Dinner","name":"Chicken fried rice (half plate)"},{"c":45,"f":15,"k":375,"p":15,"s":6,"fi":2,"id":"seed194001736","meal":"Dinner","name":"Beef pad see ew (half plate)"}],"2026-11-18":[{"c":22,"f":5,"k":190,"p":14,"s":15,"fi":1,"id":"seed32090150","meal":"Breakfast","name":"Tall matcha + protein foam"},{"c":27,"f":9,"k":455,"p":64,"s":9,"fi":8,"id":"seed357640296","meal":"Lunch","name":"Chicken + pea salad"},{"c":50,"f":37,"k":729,"p":51,"s":17,"fi":14,"id":"seed531831928","meal":"Dinner","name":"Beef loaded kumara"}],"2026-11-19":[{"c":22,"f":5,"k":190,"p":14,"s":15,"fi":1,"id":"seed326252867","meal":"Breakfast","name":"Tall matcha + protein foam"},{"c":27,"f":9,"k":455,"p":64,"s":9,"fi":8,"id":"seed333047871","meal":"Lunch","name":"Chicken + pea salad"},{"c":50,"f":37,"k":729,"p":51,"s":17,"fi":14,"id":"seed80490873","meal":"Dinner","name":"Beef loaded kumara"},{"c":8,"f":0,"k":85,"p":13,"s":7,"fi":0,"id":"1795028705792413","meal":"Breakfast","name":"Chobani light yoghurt (150g)"},{"c":1,"f":1,"k":66,"p":13,"s":1,"fi":0,"id":"1795028823144128","meal":"Breakfast","name":"Musashi 100% whey vanilla (half scoop)"},{"c":29,"f":14,"k":380,"p":25,"s":4,"fi":2,"id":"179511757534070","meal":"Dinner","name":"Chicken Burger"}],"2026-11-20":[{"c":22,"f":10,"k":200,"p":5,"s":2,"fi":1,"id":"1795118115323184","meal":"Breakfast","name":"Dill & Feta Scone"},{"c":4,"f":3,"k":55,"p":3,"s":4,"fi":0,"id":"1795118136997579","meal":"Breakfast","name":"Iced Latte"},{"c":28,"f":10,"k":460,"p":65,"s":10,"fi":7,"id":"1795118230979606","meal":"Lunch","name":"Chicken & Pea Salad"},{"c":34,"f":37,"k":660,"p":51,"s":11,"fi":12,"id":"1795150047430432","meal":"Dinner","name":"Kumara Beef Bowl Thingy"}]},w:[],act:{}},
-    jordan:{name:"Jordan",start:null,goal:null,sd:TODAY,ed:XMAS,t:{k:2200,p:150,c:220,f:70,fi:30,s:60},days:{},w:[],act:{}}}};
+    madi:{"name":"Madi","start":70,"goal":65,"sd":"2026-11-26","ed":"2026-12-22","t":{"k":1700,"p":130,"c":150,"f":58,"fi":28,"s":60},"days":{},"w":[],"act":{}},
+    jordan:{"name":"Jordan","start":null,"goal":null,"sd":"2026-11-26","ed":"2026-12-22","t":{"k":2000,"p":160,"c":215,"f":55,"fi":30,"s":60},"days":{},"w":[],"act":{}}}};
   if(o){if(o.targets)D.people.madi.t=Object.assign(D.people.madi.t,o.targets);D.people.madi.days=o.days||{};D.people.madi.w=o.weights||[];}
   save();
 }
@@ -149,8 +149,8 @@ function pv(k){
   h+=actCard(P);
   h+=card('<h2>Add food</h2><div style="display:grid;grid-template-columns:2fr 1fr;gap:8px;margin-bottom:8px"><input id="nm" placeholder="What did you eat?"><select id="ml">'+ML.map(function(m){return "<option>"+m+"</option>";}).join("")+'</select></div><div class="g3">'+["k","p","c","f","fi","s"].map(function(m){return '<label class="f">'+NM[m]+'<input id="a_'+m+'" type="number" inputmode="decimal" min="0"></label>';}).join("")+'</div><button class="pri" data-a="add" style="width:100%;margin-top:10px">Add food</button><p class="hint" style="margin:14px 0 6px">Or paste one line: name, cal, protein, carbs, fat, fibre, sugar (uses the meal picked above)</p><div style="display:flex;gap:8px"><input id="ql" placeholder="Weet-Bix with milk, 280, 12, 45, 5, 6, 14"><button class="pri" data-a="ql">Add</button></div>');
   var lg='<h2>Food log</h2>';
-  ML.forEach(function(m){var x=L.filter(function(i){return i.meal===m;});lg+='<div class="meal">'+m+'</div>';if(!x.length){lg+='<p class="hint" style="margin:0">Nothing logged</p>';return;}
-    x.forEach(function(i){lg+='<div class="item"><div>'+esc(i.name)+'<small>'+r(i.k)+' cal · Protein '+r(i.p)+' · Carbs '+r(i.c)+' · Fat '+r(i.f)+' · Fibre '+r(i.fi)+' · Sugar '+r(i.s||0)+'</small></div><button data-a="del" data-v="'+i.id+'" aria-label="Delete '+esc(i.name)+'">Delete</button></div>';});});
+  ML.forEach(function(m){var x=L.filter(function(i){return i.meal===m;});lg+='<div class="meal" style="display:flex;justify-content:space-between;align-items:center;gap:8px">'+m+(x.length?'<button data-a="cpm" data-v="'+m+'" style="font-size:12px;padding:6px 10px;min-height:0">'+(flash&&flash.m===m?flash.t:"Copy to next day")+'</button>':"")+'</div>';if(!x.length){lg+='<p class="hint" style="margin:0">Nothing logged</p>';return;}
+    x.forEach(function(i){lg+='<div class="item"><div>'+esc(i.name)+'<small>'+r(i.k)+' cal · Protein '+r(i.p)+' · Carbs '+r(i.c)+' · Fat '+r(i.f)+' · Fibre '+r(i.fi)+' · Sugar '+r(i.s||0)+'</small></div><button data-a="del" data-v="'+i.id+'" aria-label="Delete '+esc(i.name)+'">Delete</button></div>';});});flash=null;
   h+=card(lg);
   h+=card('<h2>Weigh-in</h2><p class="hint">Saving for '+(cur===TODAY?"today":fd(cur))+'. Use the ‹ › arrows up top to pick another day.</p><div style="display:flex;gap:8px"><input id="kg" type="number" inputmode="decimal" step="0.1" placeholder="Weight in kg"><button class="pri" data-a="kg">Save</button></div><p class="hint" style="margin-top:8px">'+(P.w.length?"Latest: "+P.w.slice().sort(function(a,b){return a.d<b.d?1:-1;})[0].kg+" kg":"Weigh in once a week, same day and time.")+'</p>');
   h+=card('<h2>Trends</h2><div class="chips">'+M.map(function(m){return '<button data-a="chip" data-v="'+m+'" class="'+(chip===m?"on":"")+'">'+NM[m]+'</button>';}).join("")+'</div><div class="ch"><canvas id="cm"></canvas></div><p class="hint" style="margin-top:16px">Last 4 weeks. The solid black line is your 7-day average, dashed is your target.</p>');
@@ -241,6 +241,7 @@ mn.onclick=function(e){
     var it={id:Date.now()+""+Math.floor(Math.random()*999),meal:g("ml").value,name:nm};M.forEach(function(m){it[m]=n(g("a_"+m).value);});
     (P.days[cur]=P.days[cur]||[]).push(it);save();render();}
   else if(a==="ql"){var q=g("ql").value.split(","),qn=(q[0]||"").trim(),qv=q.slice(1).map(n);if(!qn||!qv[0]){g("ql").focus();return;}var qi={id:Date.now()+""+Math.floor(Math.random()*999),meal:g("ml").value,name:qn};M.forEach(function(m,i){qi[m]=qv[i]||0;});(P.days[cur]=P.days[cur]||[]).push(qi);save();render();}
+  else if(a==="cpm"){var cm=b.dataset.v,nd=add(cur,1),src=(P.days[cur]||[]).filter(function(i){return i.meal===cm;}),have=(P.days[nd]||[]).filter(function(i){return i.meal===cm;});if(!src.length)return;var fresh=src.filter(function(i){return !have.some(function(h){return h.name===i.name&&h.k===i.k;});}).map(function(i,n){var c=JSON.parse(JSON.stringify(i));c.id=Date.now()+""+n+Math.floor(Math.random()*999);return c;});if(fresh.length)P.days[nd]=(P.days[nd]||[]).concat(fresh);flash={m:cm,t:fresh.length?"Copied to "+fd(nd):"Already there"};save();render();}
   else if(a==="del"){P.days[cur]=(P.days[cur]||[]).filter(function(i){return i.id!==b.dataset.v;});save();render();}
   else if(a==="kg"){var kg=n(g("kg").value);if(!kg)return;if(cur>TODAY)return;P.w=P.w.filter(function(x){return x.d!==cur;});P.w.push({d:cur,kg:kg});save();render();}
   else if(a==="copy"){var ta2=g("ex");ta2.select();try{navigator.clipboard.writeText(ta2.value).catch(function(){});}catch(x){try{document.execCommand("copy");}catch(y){}}b.textContent="Copied";}
@@ -256,7 +257,7 @@ mn.onchange=function(e){
 /* ---- sync engine: Supabase is the source of truth, this device keeps a cached copy ---- */
 try{pend=JSON.parse(localStorage.getItem(KEY+"-pend"))||{};}catch(e){pend={};}
 function setPend(){try{localStorage.setItem(KEY+"-pend",JSON.stringify(pend));}catch(e){}}
-function sbh(x){var h={apikey:SB_KEY,Authorization:"Bearer "+SB_KEY,"Content-Type":"application/json"};if(x)for(var k in x)h[k]=x[k];return h;}
+function sbh(x){var h={apikey:SB_KEY,"Content-Type":"application/json"};if(SB_KEY.indexOf("sb_")!==0)h.Authorization="Bearer "+SB_KEY;if(x)for(var k in x)h[k]=x[k];return h;}
 function status(t){var e=g("sync");if(e)e.textContent=t;}
 function sbPull(){return fetch(SB_URL+"/rest/v1/"+SB_TABLE+"?select=who,data",{headers:sbh()}).then(function(r){if(!r.ok)throw new Error("pull");return r.json();});}
 function sbPush(k){return fetch(SB_URL+"/rest/v1/"+SB_TABLE+"?on_conflict=who",{method:"POST",headers:sbh({Prefer:"resolution=merge-duplicates,return=minimal"}),body:JSON.stringify([{who:k,data:D.people[k],updated_at:new Date().toISOString()}])}).then(function(r){if(!r.ok)throw new Error("push");});}
